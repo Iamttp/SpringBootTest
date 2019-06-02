@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/myDataBase
+    username: root
+    password: root
+
+  jpa:
+    hibernate:
+#     create 　　每次创建一个新表，那么之前表中的数据都会丢掉
+#  　　update　　表不存在的时候才会建立新表，如果存在则不会新建，所以原有数据不会丢
+#  　　create-drop　　每次新建一个表，而且服务停掉，那么所建立的表会随之删除
+#  　　none　　　见名知意，就是什么都不做，不会给帮你建表，只能使用现有的表
+#  　　validate　　会将实体类和表进行一个验证，如果不一致会报错
+      ddl-auto: update
+    show-sql: true

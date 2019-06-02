@@ -1,0 +1,10 @@
+# 开发环境
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+people:
+  name: ttp
+  age: 19
+  sex: man
