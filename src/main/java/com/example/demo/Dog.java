@@ -5,10 +5,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "dog")
 public class Dog {
-    /*
-       如果这些注解所在的包，javax.persistence不能导入。可能是缺少依赖
-       可以在pom中加入Javax Persistence API 的依赖
-    */
+    /**
+     * 如果这些注解所在的包，javax.persistence不能导入。可能是缺少依赖
+     * 可以在pom中加入Javax Persistence API 的依赖
+     */
     @Id
     @GeneratedValue
     private Integer id;
