@@ -1,14 +1,16 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class DogController {
-    //因为业务太简单，所有我们省略service层，直接调用数据访问层的代码
+    /**
+     * 因为业务太简单，所有我们省略service层，直接调用数据访问层的代码
+     */
     @Autowired
     private DogRepository dogRepository;
 
@@ -19,6 +21,24 @@ public class DogController {
      */
     @GetMapping(value = "/dogs")
     public List<Dog> dogList() {
-        return dogRepository.findAll();//findAll()方法是底层帮我没实现好的
+        //findAll()方法是底层帮我没实现好的
+        return dogRepository.findAll();
+    }
+
+    @GetMapping(value = "/dogs/{id}")
+    public Optional<Dog> findDogById(@PathVariable("id") Integer id) {
+        return dogRepository.findById(id);
+    }
+
+    @PostMapping(value = "addDogs")
+    public Dog addDogs(
+            @RequestParam("age") Integer age,
+            @RequestParam("name") String name,
+            @RequestParam("id") Integer id) {
+        Dog dog = new Dog();
+        dog.setAge(age);
+        dog.setName(name);
+        dog.setId(id);
+        return dogRepository.save(dog);
     }
 }
