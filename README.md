@@ -101,7 +101,7 @@ Ctrl + alt + A 输入 Registry 勾选comple...running
 
 ### spring boot 原理分析
 
-生成依赖：
+**生成依赖**：
 
 ctrl + 点击<artifactId>spring-boot-starter-parent</artifactId>
 
@@ -134,3 +134,50 @@ ctrl + 点击<artifactId>spring-boot-starter-parent</artifactId>
 
 ...
 
+同理点击 spring-boot-starter-web 可以看到spring等
+
+**自动配置**：
+
+ctrl + 点击`@SpringBootApplication`进入注解
+```java
+// 包扫描 引导类所在包下面扫描
+@ComponentScan(excludeFilters = {
+		@Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
+		@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
+```
+
+JDK1.5之后内部提供的三个注解(和反射有关)
+```
+@Deprecated 意思是“废弃的，过时的”
+@Override 意思是“重写、覆盖”
+@SuppressWarnings 意思是“压缩警告”
+```
+
+> 总结：注解(Annotation)相当于一种标记，在程序中加入注解就等于为程序打上某种标记，没有加，则等于没有任何标记，以后，javac编译器、开发工具和其他程序可以通过反射来了解你的类及各种元素上有无何种标记，看你的程序有什么标记，就去干相应的事，标记可以加在包、类，属性、方法，方法的参数以及局部变量上。
+
+
+@Configuration     @Bean
+
+Spring中为了减少xml中配置，可以声明一个配置类（例如SpringConfig）来对bean进行配置。
+
+@Bean是一个方法级别上的注解，主要用在@Configuration注解的类里，也可以用在@Component注解的类里。添加的bean的id为方法名
+
+下面是@Configuration里的一个例子
+
+```java
+@Configuration
+public class AppConfig {
+    @Bean
+    public TransferService transferService() {
+        return new TransferServiceImpl();
+    }
+}
+```
+
+这个配置就等同于之前在xml里的配置
+
+```xml
+<beans>
+    <bean id="transferService" class="com.acme.TransferServiceImpl"/>
+</beans>
+```
