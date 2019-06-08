@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.controller;
 
+import com.example.demo.People;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ public class PeopleController {
     @ResponseBody
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello() {
-        return "hello boot";
+        return "hello boot 1013123423000";
     }
 
     @Autowired
