@@ -95,9 +95,9 @@ spring boot 核心功能：
 
 2. idea 热部署：
 
-setting -> compiler -> ...
+1) setting -> compiler -> ...
 
-Ctrl + alt + A 输入 Registry 勾选comple...running
+2) Ctrl + alt + A 输入 Registry 勾选comple...running
 
 ### spring boot 原理分析
 
@@ -147,6 +147,7 @@ ctrl + 点击`@SpringBootApplication`进入注解
 ```
 
 JDK1.5之后内部提供的三个注解(和反射有关)
+
 ```
 @Deprecated 意思是“废弃的，过时的”
 @Override 意思是“重写、覆盖”
@@ -156,7 +157,11 @@ JDK1.5之后内部提供的三个注解(和反射有关)
 > 总结：注解(Annotation)相当于一种标记，在程序中加入注解就等于为程序打上某种标记，没有加，则等于没有任何标记，以后，javac编译器、开发工具和其他程序可以通过反射来了解你的类及各种元素上有无何种标记，看你的程序有什么标记，就去干相应的事，标记可以加在包、类，属性、方法，方法的参数以及局部变量上。
 
 
-@Configuration     @Bean
+默认配置：
+
+![avatar](1.png)
+
+**@Configuration     @Bean**
 
 Spring中为了减少xml中配置，可以声明一个配置类（例如SpringConfig）来对bean进行配置。
 
@@ -181,3 +186,90 @@ public class AppConfig {
     <bean id="transferService" class="com.acme.TransferServiceImpl"/>
 </beans>
 ```
+
+YML 以数据为核心 比XML更加简洁
+
+文件扩展名为 .yml .yaml
+
+### 整合Mybatis
+
+1. 添加Mybatis的起步依赖
+
+    ```xml
+    <!-- mybatis依赖， mybatis提供的起步依赖-->
+    <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>1.1.1</version>
+    </dependency>
+    ```
+    
+2. 添加数据库驱动坐标
+
+    ```xml
+    <!-- 数据库连接驱动-->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    ```
+    
+3. 添加数据库连接信息
+
+    ```yml
+    spring:
+        datasource:
+            driver-class-name: com.mysql.jdbc.Driver
+            url: jdbc:mysql://127.0.0.1:3306/myDataBase
+            username: root
+            password: root
+    ```
+    
+4. 创建user表
+
+    ```mysql
+    # TODO 数据库创建user表
+    ```
+
+5. 创建实体Bean
+
+    ```java
+    //TODO 定义java对象类
+    ```
+    
+6, 编写Mapper
+
+   > resource: 
+   >
+   > mapper: 
+   >
+   > UserMapper.xml
+   >
+   
+            
+    ```xml
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+            "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.example.demo">
+        <select id="queryUserList" resultMap="user">
+            select *from user
+        </select>
+    </mapper>
+    ```
+    
+7. 配置mapper配置文件
+
+
+8. 在application.yml添加mybatis的信息
+9. 编写测试controller
+10. 测试
+
+
+## 比较总结:
+
+Hibernate 对数据库提供了较为完整的封装,封装了基本的DAO层操作,有较好的数据库移植性
+
+Mybatis 可以进行更细致的SQL优化,查询必要的字段,但是需要维护SQL和查询结果集的映射,而且数据库的移植性较差,针对不同的数据库编写不同的SQL,
+
+Spring Data JPA 极大的简化了数据库访问,可以通过命名规范、注解的方式较快的编写SQL。
